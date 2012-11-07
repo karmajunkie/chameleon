@@ -1,11 +1,16 @@
 class WidgetsController < ApplicationController
-  before_filter :find_widget
-  before_filter :validate_key
+  layout false
   skip_before_filter :verify_authenticity_token
 
   def show
+    find_widget
+    validate_key
     @data = @widget.data.call(@auth)
     render "#{@widget.type}.xml"
+  end
+
+  def index
+    @paths = Widget.widgets.map{|k, w| widget_url(:id => k, :key => w.key)}
   end
 
   protected
