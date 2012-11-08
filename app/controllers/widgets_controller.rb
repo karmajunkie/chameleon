@@ -6,7 +6,8 @@ class WidgetsController < ApplicationController
     find_widget
     validate_key
     @data = @widget.data.call(@auth)
-    render "#{@widget.type}.xml"
+    #render "#{@widget.type}.xml"
+    render :json => @data
   end
 
   def index
